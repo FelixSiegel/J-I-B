@@ -1,0 +1,33 @@
+{
+    "page1": {
+        "description": "This is only a short description of the single functionalities and the commands with their values. For more detailed info's see wiki linked below!",
+        "fields": {
+            "/rules": "Send currently rules of the server. If no rules or an description is specified it sends a error-message. To set up rules for your server use /define_server_rules",
+            "/define_server_rules": "No additional arguments are needed, but attention, execute the command where the rules should be sent! \nWhen called, a modal appears, a text input window, where you can then write the title as well as the rules themselves. Markdown syntax like bold or italics are allowed. Smiley must be written with the format of Discord, so *name of smiley*, embedded in 2 `:` .\nAfter the rules are written and sent, it asks which role members should get once they have accepted the rules. Once a role is selected, the rules are sent along with a button to accept them.\nTo define new rules, call this command again and the current ones will be overwritten."
+        }
+    },
+    "page2": {
+        "fields": {
+            "/kick `user`": "Kicks the given user from the server.",
+            "/ban `user` `reason`": "Bans the given user from server. A reason is **optional** but for recommendable because members than know the reason and can change their behavior or learn from their mistakes.",
+            "/unban `user`": "Removes ban from given user. If user isn't banned, nothing happens",
+            "/warn `user` `reason`": "Warns a given user with optional reason. Warn-message will sent to channel where command was run from. Save and shows the count of warns from the user.",
+            "*warns `user`*": "Currently not implemented! Will come in the next update. Sends a message with count of warns of the given user"
+        }
+    },
+    "page3": {
+        "fields": {
+            "/msg_delete `count`": "Delete last *count* messages in the channel. If count is not given it deletes the last message. If count is a invalid number, like 0 or lower, it will sends an error.",
+            "/add_role `user` `role`": "Adds the given role to the user. If given role has a higher warranty as bot has, it´s not possible to add the role to the user. If user already has the role, nothing happens.",
+            "/remove_role `user` `role`": "Removes the given role from the user. If given role has a higher warranty as bot has, it´s not possible to remove the role from the user. If user has not had the role, nothing happens.",
+            "/meme": "Sends random meme."
+        }
+    },
+    "page4": {
+        "fields": {
+            "/send": "Sends a message given by the user",
+            "Functionality:": "Currently its sends a welcome message if member joined th Server. It also sends a welcome info if bot invited to a server. In the next major update he offers the option of a total Member advertisement. For more infos about new features in the future, see Git-Hub Repository of this bot."
+        }
+    }
+}
+
