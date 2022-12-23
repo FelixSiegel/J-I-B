@@ -1,0 +1,50 @@
+{
+    "page1": {
+        "description": "This is only a short description of the single functionalities and the commands with their values. For more detailed info's see wiki linked below!",
+        "fields": {
+            "/rules": "Send currently rules of the server. If no rules or an description is specified it sends a error-message. To set a rule use `/add_rule` or for setting a description use `/set_rule_description`",
+            "/add_rule `title` `content`": "Add a rule to this Server. Title can be the name of the rule for an example **Profile**. Content is the Rule itself, so in our example it could be: **avatar and name may not contain insults**",
+            "/remove_rule `title`": "Removes a rule from the Server. The Title is the Title of the rule you specified while setting the rule (use `/rules` for see rules)"
+        }
+    },
+    "page2": {
+        "fields": {
+            "/add_rule_description `content`": "Allows to add a description to rules. So a description can be a sentence for punishment in case of disregard of rules. Content takes the content of the description you want set. If already some set, it will override",
+            "/remove_rule_description": "Removes current description of the rules. If none set nothing happens",
+            "/set_rule_role `role`": "Allows to sepcify a role as \"Member role\". This means a role members can get if they accept to the rules. For make it possible to accept to rules you first need to add accept button to rule-message via `/add_rule_accept_button`"
+        }
+    },
+    "page3": {
+        "fields": {
+            "/add_rule_accept_button `msg_id`": "If you have set a rule role via `/set_rule_role`, you can add a button to a rule message to allow members to accept the rules. Then when someone clicks on the button, they get the role you specified. Message needs to be sends from the bot self, because he can only edit own messages. To get id of the message make sure you have enabled User-Settings > Advanced > Developer Mode, then you can right click message and copy id.",
+            "/kick `user`": "Kicks the given user from the server.",
+            "/ban `user` `reason`": "Bans the given user from server. A reason is **optional** but for recommendable because members than know the reason and can change their behavior or learn from their mistakes."
+        }
+    },
+    "page4": {
+        "fields": {
+            "/unban `user`": "Removes ban from given user. If user isn't banned, nothing happens",
+            "/warn `user` `reason`": "Warns a given user with optional reason. Warn-message will sent to channel where command was run from. Save and shows the count of warns from the user.",
+            "*warns `user`*": "Currently not implemented! Will come in the next update. Sends a message with count of warns of the given user",
+            "/msg_delete `count`": "Delete last *count* messages in the channel. If count is not given it deletes the last message. If count is a invalid number, like 0 or lower, it will sends an error."
+        }
+    },
+    "page5": {
+        "fields": {
+            "/add_role `user` `role`": "Adds the given role to the user. If given role has a higher warranty as bot has, it´s not possible to add the role to the user. If user already has the role, nothing happens.",
+            "/remove_role `user` `role`": "Removes the given role from the user. If given role has a higher warranty as bot has, it´s not possible to remove the role from the user. If user has not had the role, nothing happens.",
+            "/meme": "!!!DOESNT WORK ANYMORE!!! Sends a randomly meme to this channel."
+        }
+    },
+    "page6": {
+        "fields": {
+            "Functionality:": "Currently its sends a welcome message if member joined th Server. It also sends a welcome info if bot invited to a server. In the next major update he offers the option of a total Member advertisement. For more infos about new features in the future, see Git-Hub Repository of this bot."
+        }
+    },
+    "page7": {
+        "fields": {
+            "/send": "Sends a message given by the user"
+        }
+    }
+}
+
