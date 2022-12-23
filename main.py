@@ -1,7 +1,16 @@
+import random
+
 import interactions
 import json
-import requests
 from sys import exit
+import praw
+# using later Async Praw
+from random import randint
+
+# reddit api stuff:
+client_id = ""
+client_secret = ""
+user_agent = ""
 
 # try to load necessary variables of bot -> if Error set to default
 try:
@@ -106,6 +115,7 @@ async def define_server_rules(ctx: interactions.CommandContext):
     await ctx.popup(modal)
     await ctx.send("Modal was send!", ephemeral=True)
 
+
 # -----------------------------------------------------
 # MODAL component
 # manage the modal for entering server rules data to your server
@@ -133,7 +143,9 @@ async def set_server_rule(ctx: interactions.CommandContext, title: str, content:
         )
     select_menu.options = options
 
-    await ctx.send("Please choose a role, that people get, when they agree to your rules.", components=select_menu, ephemeral=True)
+    await ctx.send("Please choose a role, that people get, when they agree to your rules.", components=select_menu,
+                   ephemeral=True)
+
 
 # -----------------------------------------------------
 # RULE_ACCEPT_CHOOSER component
@@ -155,6 +167,7 @@ async def rules_accept_role(ctx: interactions.ComponentContext, choosen_roles: s
     await ctx.channel.send(embeds=embed, components=button)
     await ctx.send("Rules were successfully set up!", ephemeral=True)
 
+
 # -----------------------------------------------------
 # RULE-BUTTON component
 # Component for the Accept-Button -> called if clicked -> give role to user
@@ -169,6 +182,7 @@ async def func(ctx: interactions.ComponentContext):
     else:
         # if already has, send only a message to the user
         await ctx.send("You already have the role for accepting to the rules!", ephemeral=True)
+
 
 # -----------------------------------------------------
 # RULES command
@@ -442,18 +456,14 @@ async def on_guild_member_remove(ctx):
     description="post a random meme",
 )
 async def meme(ctx: interactions.CommandContext):
-    async def gen_meme():
-        meme_json = requests.get("https://meme-api.herokuapp.com/gimme").text
-        loaded = json.loads(meme_json)
-        title = loaded["title"]
-        url = loaded["url"]
-        nsfw = loaded["nsfw"]
-        return title, url, nsfw
+    reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent=user_agent)
 
-    nsfw = True
-    while nsfw != False:
-        title, url, nsfw = await gen_meme()
-    await ctx.send(f"**{title}**\n{url}")
+    meme_submission = reddit.subreddit('memes').hot()
+    post_to_pick = randint(0, 100)
+    for i in range(0, post_to_pick):
+        submission = next(x for x in meme_submission if not x.stickied)
+
+    await ctx.send(f"**{submission.title}**\n{submission.url}")
 
 
 # =====================================================================================================================
@@ -495,6 +505,7 @@ async def help_menu(ctx: interactions.CommandContext):
     row = interactions.ActionRow.new(back_btn, next_btn, wiki_btn)
     await ctx.send(embeds=embed, components=row)
 
+
 @bot.component("back_button")
 async def func(ctx: interactions.ComponentContext):
     # get current page
@@ -505,17 +516,18 @@ async def func(ctx: interactions.ComponentContext):
         return
     # else load new content into embed
     embed = interactions.Embed()
-    embed.title = f"Help menu of J-I-B Bot – Page {cur_page-1}"
+    embed.title = f"Help menu of J-I-B Bot – Page {cur_page - 1}"
     with open("data/help_doc.json", "r") as fo:
         help_pages: dict = json.load(fo)
-    if "description" in help_pages[f"page{cur_page-1}"].keys():
-        embed.description = help_pages[f"page{cur_page-1}"]["description"]
+    if "description" in help_pages[f"page{cur_page - 1}"].keys():
+        embed.description = help_pages[f"page{cur_page - 1}"]["description"]
     if help_pages[f"page{cur_page - 1}"]["fields"].keys():
         for field in help_pages[f"page{cur_page - 1}"]["fields"].keys():
             embed.add_field(field, help_pages[f"page{cur_page - 1}"]["fields"][field])
     embed.color = int(('#%02x%02x%02x' % (124, 255, 48)).replace("#", "0x"), base=16)
     # edit message
     await ctx.edit(embeds=embed)
+
 
 @bot.component("next_button")
 async def func(ctx: interactions.ComponentContext):
@@ -529,11 +541,11 @@ async def func(ctx: interactions.ComponentContext):
         return
     # else load new content into embed
     embed = interactions.Embed()
-    embed.title = f"Help menu of J-I-B Bot – Page {cur_page+1}"
-    if "description" in help_pages[f"page{cur_page+1}"].keys():
-        embed.description = help_pages[f"page{cur_page+1}"]["description"]
-    for field in help_pages[f"page{cur_page+1}"]["fields"].keys():
-        embed.add_field(field, help_pages[f"page{cur_page+1}"]["fields"][field])
+    embed.title = f"Help menu of J-I-B Bot – Page {cur_page + 1}"
+    if "description" in help_pages[f"page{cur_page + 1}"].keys():
+        embed.description = help_pages[f"page{cur_page + 1}"]["description"]
+    for field in help_pages[f"page{cur_page + 1}"]["fields"].keys():
+        embed.add_field(field, help_pages[f"page{cur_page + 1}"]["fields"][field])
     embed.color = int(('#%02x%02x%02x' % (124, 255, 48)).replace("#", "0x"), base=16)
     # edit message
     await ctx.edit(embeds=embed)
