@@ -1,5 +1,3 @@
-import random
-
 import interactions
 import json
 from sys import exit
@@ -12,7 +10,7 @@ client_id = ""
 client_secret = ""
 user_agent = ""
 
-# try to load necessary variables of bot -> if Error set to default
+# try to load necessary variables of bot -> if Error close script
 try:
     with open("./data/server_datas.json", "r") as sI:
         servers: dict = json.load(sI)
@@ -44,7 +42,7 @@ bot = interactions.Client(token=input("Please enter your Bot-Token: "),
 async def on_ready():
     print("\n\033[92m[INFO]:\033[00m Bot successfully started!\n")
 
-    # Total and Online Member counters
+    # Total and Online Member counters -> only for own test-server
     try:
         guild = await interactions.get(bot, interactions.Guild, object_id=931944391768170516)
         total_member_channel = await interactions.get(bot, interactions.Channel, object_id=932174956937228298)
@@ -453,7 +451,7 @@ async def on_guild_member_remove(ctx):
 # MEME generator command
 @bot.command(
     name="meme",
-    description="post a random meme",
+    description="Post a random meme",
 )
 async def meme(ctx: interactions.CommandContext):
     reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent=user_agent)
@@ -499,7 +497,7 @@ async def help_menu(ctx: interactions.CommandContext):
     wiki_btn = interactions.Button(
         style=interactions.ButtonStyle.LINK,
         label="Wiki",
-        url="https://github.com/jumpie07/J-I-B/wiki",
+        url="https://github.com/FelixSiegel/J-I-B/wiki",
     )
 
     row = interactions.ActionRow.new(back_btn, next_btn, wiki_btn)
