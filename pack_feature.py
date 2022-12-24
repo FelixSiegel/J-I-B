@@ -1,34 +1,36 @@
 from os import listdir
 import re
-def pack(dir="features",auto=False):
+
+
+def pack(dir="features", auto=False):
     files = listdir(dir)
-    files.sort(key=lambda test_string: list(
-    map(int, re.findall(r'\d+', test_string)))[0])
+    files.sort(key=lambda test_string: list(map(int, re.findall(r'\d+', test_string)))[0])
 
     install = []
-    if auto == False:
-        print("You can enable or disable features if you disable the wrong ones the Bot could BROKEN")
+    if not auto:
+        print("\033[93m [WARN]:\033[00m You can turn features on/off, but beware, disabling the wrong functions can "
+              "crash the bot.")
         for file in files:
+            userinput = input(f'\n\nDo you want install following feature (y (yes) or n (no)): {file} \n')
             while True:
-                userinput = input(f'{file}\n to you want install this feature? yes(y) no(standard=n)')
-                if not userinput == "y" or userinput == "n":
-                    continue
-                else:
-                    if userinput == "y":
-                        install.append(file)
-                    else:
-                        pass
+                if userinput == "y":
+                    install.append(file)
                     break
+                if userinput == "n":
+                    break
+                else:
+                    userinput = input(f"\nIncorrect Answer! Use 'y' for yes or 'n' for no: ")
     else:
         install = files
     new_code_string = ""
     for installing in install:
         path = f"{dir}/{installing}"
-        new_code_string = new_code_string + "\n" + open(path,"r").read()
+        new_code_string = new_code_string + "\n" + open(path, "r").read()
     return new_code_string
 
+
 if __name__ == '__main__':
-    with open("output.py","w") as output:
+    with open("output.py", "w") as output:
         code = pack()
         output.write(code)
-    print("Saved your botpy to output.py")
+    print("\n\033[92m[INFO]:\033[00m Your selected feature are included successfully!\n")
