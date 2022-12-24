@@ -5,13 +5,14 @@ import json
 from shutil import copyfile, rmtree
 
 code_url = "https://github.com/FelixSiegel/J-I-B/archive/refs/heads/main.zip"
-version_url = "https://raw.githubusercontent.com/FelixSiegel/J-I-B/main/client_info.json"
+version_url = "https://raw.githubusercontent.com/FelixSiegel/J-I-B/main/.client_info.json"
 download_path = "./temp/bot.zip"
 
 
 def _check_update():
     # first get version-number of git remote
     content_str = requests.get(version_url).text
+    print(content_str)
     content = json.loads(content_str)
     remote_ver = content["version"]
 
