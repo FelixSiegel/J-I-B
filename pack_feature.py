@@ -4,7 +4,7 @@ import re
 
 def pack(dir="features", auto=False):
     files = listdir(dir)
-    files.sort(key=lambda test_string: list(map(int, re.findall(r'\d+', test_string)))[0])
+    files.sort()
 
     install = []
     if not auto:
@@ -18,8 +18,7 @@ def pack(dir="features", auto=False):
                     break
                 if userinput == "n":
                     break
-                else:
-                    userinput = input(f"\nIncorrect Answer! Use 'y' for yes or 'n' for no: ")
+                userinput = input(f"\nIncorrect Answer! Use 'y' for yes or 'n' for no: ")
     else:
         install = files
     new_code_string = ""

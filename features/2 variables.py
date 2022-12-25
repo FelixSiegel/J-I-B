@@ -1,1 +1,0 @@
-muted_users = []  # list of user who muted
