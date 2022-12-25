@@ -6,7 +6,6 @@ if __name__ == '__main__':
     print("\n\033[92m[INFO]:\033[00m Building Bot..................\n")
     bot_code = pack(auto=True)
     print("\n\033[92m[INFO]:\033[00m Starting Bot..................\n")
-    print("\n" * 4)
-
+    print("\n" * 999) #i want clear the screen ice!
     # run code
     exec(bot_code)
